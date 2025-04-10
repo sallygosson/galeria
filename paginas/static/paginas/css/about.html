@@ -10,6 +10,12 @@
       font-family: 'Cinzel', serif;
       background-color: #000;
       color: #fff;
+      transition: background-color 0.3s, color 0.3s, opacity 0.5s ease;
+      opacity: 0;
+    }
+
+    body.fade-in {
+      opacity: 1;
     }
 
     .navbar {
@@ -22,6 +28,7 @@
       width: 100%;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 2px 10px rgba(255,255,255,0.05);
     }
 
     .navbar a {
@@ -30,6 +37,27 @@
       text-decoration: none;
       font-weight: bold;
       font-size: 1.1em;
+      transition: color 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #f39ac0;
+    }
+
+    .tema-btn {
+      background: none;
+      border: 2px solid #fff;
+      color: #fff;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 0.9em;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    .tema-btn:hover {
+      background-color: #fff;
+      color: #000;
     }
 
     .conteudo {
@@ -47,6 +75,35 @@
 
     p {
       font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+
+    /* Tema claro */
+    body.claro {
+      background-color: #fff;
+      color: #111;
+    }
+
+    body.claro .navbar {
+      background-color: #f4f4f4;
+    }
+
+    body.claro .navbar a {
+      color: #111;
+    }
+
+    body.claro .navbar a:hover {
+      color: #c71585;
+    }
+
+    body.claro .tema-btn {
+      border-color: #111;
+      color: #111;
+    }
+
+    body.claro .tema-btn:hover {
+      background-color: #111;
+      color: #fff;
     }
   </style>
 </head>
@@ -58,20 +115,64 @@
       <a href="about.html">Sobre</a>
       <a href="contato.html">Contato</a>
     </div>
+    <button class="tema-btn" onclick="alternarTema()">Alternar Tema</button>
   </div>
 
   <div class="conteudo">
     <h1>Sobre esta Galeria</h1>
     <p>
-      Esta galeria foi criada com amor, para homenagear a arte e a beleza de Yekaterina  Petrovna Zamolodchikova, ou apenas Katya, para os mais íntimos — drag queen, ícone, lenda e inspiração para todos nós.
+      Esta galeria foi criada com amor, para homenagear a arte e a beleza de Yekaterina Petrovna Zamolodchikova, ou apenas Katya, para os mais íntimos — drag queen, ícone, lenda e inspiração para todos nós.
     </p>
     <p>
-      As imagens aqui exibidas são uma coletânea de momentos memoráveis e estéticos que capturam o espírito livre e fabuloso da drag que nos deu tudo com látex, russo e humor. 
+      As imagens aqui exibidas são uma coletânea de momentos memoráveis e estéticos que capturam o espírito livre e fabuloso da drag que nos deu tudo com látex, russo e humor.
     </p>
     <p>
-    Meu nome é Sally Gosson, tenho 17 anos e estou cursando o ensino médio, Semestre 5. Este site foi criado como parte de um projeto da disciplina de Web II, ministrada pelo professor Alisson Alencar, mas também como uma homenagem à arte drag e, principalmente, à Katya Zamolodchikova. </p> <p> Escolhi esse tema porque sou muito fã da Katya e de tudo que ela representa: liberdade, autenticidade, humor ácido e estética impecável. Criar uma galeria visual com as fotos dela foi uma forma de juntar programação (uma coisa que não está na minha área e tenho dificuldade) com algo que eu realmente gosto, o que tornou o processo muito mais divertido pra mim. </p> <p> Cada detalhe do site foi pensado com carinho e criatividade — com um toque de darkness e drama, claro.
+      Meu nome é Sally Gosson, tenho 17 anos e estou cursando o ensino médio, Semestre 5. Este site foi criado como parte de um projeto da disciplina de Web II, ministrada pelo professor Alisson Alencar, mas também como uma homenagem à arte drag e, principalmente, à Katya Zamolodchikova.
+    </p>
+    <p>
+      Escolhi esse tema porque sou muito fã da Katya e de tudo que ela representa: liberdade, autenticidade, humor ácido e estética impecável. Criar uma galeria visual com as fotos dela foi uma forma de juntar programação (uma coisa que não está na minha área e tenho dificuldade) com algo que eu realmente gosto, o que tornou o processo muito mais divertido pra mim.
+    </p>
+    <p>
+      Cada detalhe do site foi pensado com carinho e criatividade — com um toque de darkness e drama, claro.
     </p>
   </div>
+
+  <script>
+    // Aplicar o tema salvo
+    if (localStorage.getItem('tema') === 'claro') {
+      document.body.classList.add('claro');
+    }
+
+    // Fade-in ao carregar
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('fade-in');
+    });
+
+    // Alternar tema
+    function alternarTema() {
+      document.body.classList.toggle('claro');
+      if (document.body.classList.contains('claro')) {
+        localStorage.setItem('tema', 'claro');
+      } else {
+        localStorage.setItem('tema', 'escuro');
+      }
+    }
+
+    // Fade-out suave ao navegar
+    document.querySelectorAll('a').forEach(link => {
+      const destino = link.getAttribute('href');
+      if (destino && !destino.startsWith('#') && !link.hasAttribute('target')) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.body.classList.remove('fade-in');
+          document.body.style.opacity = '0';
+          setTimeout(() => {
+            window.location.href = this.href;
+          }, 300);
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>

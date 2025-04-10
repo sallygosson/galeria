@@ -10,7 +10,12 @@
       font-family: 'Cinzel', serif;
       background-color: #000;
       color: #fff;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.3s, color 0.3s, opacity 0.5s;
+      opacity: 0;
+    }
+
+    body.fade-in {
+      opacity: 1;
     }
 
     .navbar {
@@ -36,7 +41,7 @@
     }
 
     .navbar a:hover {
-      color: #ddd;
+      color: #f39ac0;
     }
 
     .tema-btn {
@@ -103,7 +108,7 @@
     .zoom {
       display: none;
       position: fixed;
-      z-index: 9999; /* Aumentado para ficar acima da navbar */
+      z-index: 9999;
       top: 0; left: 0;
       width: 100vw;
       height: 100vh;
@@ -111,8 +116,7 @@
       justify-content: center;
       align-items: center;
       animation: fadeIn 0.3s ease;
-}
-
+    }
 
     .zoom img {
       max-width: 90vw;
@@ -207,6 +211,18 @@
   </div>
 
   <script>
+    // Fade-in suave ao entrar na página
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('fade-in');
+
+      // Carregar tema salvo
+      const temaSalvo = localStorage.getItem('tema');
+      if (temaSalvo === 'claro') {
+        document.body.classList.add('claro');
+      }
+    });
+
+    // Galeria de imagens
     const galeria = document.getElementById('galeria');
     for (let i = 1; i <= 40; i++) {
       const wrapper = document.createElement('div');
@@ -238,7 +254,23 @@
 
     function alternarTema() {
       document.body.classList.toggle('claro');
+      const temaAtual = document.body.classList.contains('claro') ? 'claro' : 'escuro';
+      localStorage.setItem('tema', temaAtual);
     }
+
+    // Transição ao sair da página
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        if (this.href && !this.href.includes('#')) {
+          e.preventDefault();
+          document.body.classList.remove('fade-in');
+          document.body.style.opacity = 0;
+          setTimeout(() => {
+            window.location = this.href;
+          }, 300);
+        }
+      });
+    });
   </script>
 </body>
 </html>

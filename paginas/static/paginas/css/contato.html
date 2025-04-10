@@ -30,6 +30,27 @@
       text-decoration: none;
       font-weight: bold;
       font-size: 1.1em;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #f39ac0;
+    }
+
+    .tema-btn {
+      background: none;
+      border: 2px solid #fff;
+      color: #fff;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 0.9em;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+
+    .tema-btn:hover {
+      background-color: #fff;
+      color: #000;
     }
 
     .conteudo {
@@ -58,17 +79,90 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(255,255,255,0.2);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: subir 0.6s forwards;
     }
 
     .rede:hover {
       transform: scale(1.05);
+      background-color: #222;
     }
 
     .rede a {
       color: #fff;
       text-decoration: none;
       font-size: 1.2em;
+      transition: color 0.3s ease;
+    }
+
+    .rede a:hover {
+      color: #f39ac0;
+    }
+
+    @keyframes subir {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .redes {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .rede {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* Tema Claro */
+    body.claro {
+      background-color: #fff;
+      color: #111;
+    }
+
+    body.claro .navbar {
+      background-color: #f4f4f4;
+    }
+
+    body.claro .navbar a {
+      color: #111;
+    }
+
+    body.claro .navbar a:hover {
+      color: #c71585;
+    }
+
+    body.claro .tema-btn {
+      border: 2px solid #111;
+      color: #111;
+    }
+
+    body.claro .tema-btn:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+    body.claro .rede {
+      background-color: #eee;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    body.claro .rede:hover {
+      background-color: #ddd;
+    }
+
+    body.claro .rede a {
+      color: #111;
+    }
+
+    body.claro .rede a:hover {
+      color: #c71585;
     }
   </style>
 </head>
@@ -80,11 +174,12 @@
       <a href="about.html">Sobre</a>
       <a href="contato.html">Contato</a>
     </div>
+    <button class="tema-btn" onclick="alternarTema()">Alternar Tema</button>
   </div>
 
   <div class="conteudo">
     <h1>Redes Sociais & Contato</h1>
-    <p>Conecte-se com a Katya Zamo ! 💋</p>
+    <p>Conecte-se com a Katya Zamo! 💋</p>
 
     <div class="redes">
       <div class="rede"><a href="https://instagram.com/katya_zamo" target="_blank">Instagram</a></div>
@@ -93,6 +188,25 @@
       <div class="rede"><a href="https://www.youtube.com/@trixiekatya9323" target="_blank">Podcast</a></div>
     </div>
   </div>
+
+  <script>
+    // Aplica o tema salvo ao carregar a página
+    window.onload = () => {
+      const temaSalvo = localStorage.getItem("tema");
+      if (temaSalvo === "claro") {
+        document.body.classList.add("claro");
+      }
+    };
+
+    function alternarTema() {
+      document.body.classList.toggle("claro");
+      if (document.body.classList.contains("claro")) {
+        localStorage.setItem("tema", "claro");
+      } else {
+        localStorage.setItem("tema", "escuro");
+      }
+    }
+  </script>
 
 </body>
 </html>
