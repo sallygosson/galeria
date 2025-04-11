@@ -78,7 +78,6 @@
       margin-bottom: 20px;
     }
 
-    /* Tema claro */
     body.claro {
       background-color: #fff;
       color: #111;
@@ -148,7 +147,6 @@
       document.body.classList.add('fade-in');
     });
 
-    // Alternar tema
     function alternarTema() {
       document.body.classList.toggle('claro');
       if (document.body.classList.contains('claro')) {
@@ -158,7 +156,6 @@
       }
     }
 
-    // Fade-out suave ao navegar
     document.querySelectorAll('a').forEach(link => {
       const destino = link.getAttribute('href');
       if (destino && !destino.startsWith('#') && !link.hasAttribute('target')) {
