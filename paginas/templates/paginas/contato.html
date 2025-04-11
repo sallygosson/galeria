@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -170,9 +171,9 @@
 
   <div class="navbar">
     <div>
-      <a href="index.html">Homepage</a>
-      <a href="about.html">Sobre</a>
-      <a href="contato.html">Contato</a>
+      <a href="{% url 'home' %}">Galeria</a>
+      <a href="{% url 'about' %}">Sobre</a>
+      <a href="{% url 'contato' %}">Contato</a>
     </div>
     <button class="tema-btn" onclick="alternarTema()">Alternar Tema</button>
   </div>

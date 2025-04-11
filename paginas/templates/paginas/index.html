@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -198,9 +199,9 @@
 
   <div class="navbar">
     <div>
-      <a href="index.html">Homepage</a>
-      <a href="about.html">Sobre</a>
-      <a href="contato.html">Contato</a>
+      <a href="{% url 'home' %}">Galeria</a>
+      <a href="{% url 'about' %}">Sobre</a>
+      <a href="{% url 'contato' %}">Contato</a>
     </div>
     <button class="tema-btn" onclick="alternarTema()">Alternar Tema</button>
   </div>
@@ -234,7 +235,7 @@
       wrapper.style.animationDelay = `${i * 0.05}s`;
 
       const img = document.createElement('img');
-      img.src = `img/foto${i}.jpg`;
+      img.src = `/static/paginas/img/foto${i}.jpg`;
       img.alt = `Foto ${i}`;
       img.className = 'foto';
 
