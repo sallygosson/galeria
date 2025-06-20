@@ -1,4 +1,5 @@
 from pathlib import Path
+import os  # <-- necessário para configurar pastas estáticas
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -6,7 +7,7 @@ SECRET_KEY = 'django-insecure-8d-9is9-f-d^dilsr0l9c2hk2gboy%#yqxe0$u*&(=-(v_b$61
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.onrender.com']  # <-- necessário para Render aceitar o acesso
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -15,11 +16,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'paginas', 
+    'paginas',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # <-- adicionado para servir arquivos estáticos
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -33,7 +35,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [], 
+        'DIRS': [],  # pode adicionar templates aqui se necessário
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,4 +81,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# ✅ Adicione estas duas linhas no final do arquivo:
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
